@@ -1,5 +1,8 @@
 # Docker-installation
-Docker installation steps for Window, Ubuntu and Centos
+Docker installation steps for 
+* [Window](https://github.com/Upa005/Docker-installation/blob/master/README.md#docker-installation-in-windows), 
+* [Ubuntu]() 
+* [Centos]()
 
 ## Docker installation in windows
 1) Follow the [link](https://hub.docker.com/editions/community/docker-ce-desktop-windows) to download docker (community version) for windows:
@@ -66,4 +69,107 @@ It's time to configure it.
 
 ```
 
+---
 
+## Docker installation in Centos
+
+1. Update the Operating System
+```
+sudo yum update -y
+```
+
+2. Uninstall old versions (If any)
+```
+sudo yum remove docker \
+                 docker-client \
+                 docker-client-latest \
+                 docker-common \
+                 docker-latest \
+                 docker-latest-logrotate \
+                 docker-logrotate \
+                 docker-selinux \
+                 docker-engine-selinux \
+                 docker-engine
+```
+
+3. Install required packages:
+  * yum-utils provides the yum-config-manager utility
+  * device-mapper-persistent-data and lvm2 are required by the devicemapper storage driver
+```
+sudo yum install -y yum-utils \
+ device-mapper-persistent-data \
+ lvm2
+ ```
+ 
+4. Use the following command to set up the stable repository.
+
+```
+sudo yum-config-manager \
+   --add-repo \
+   https://download.docker.com/linux/centos/docker-ce.repo
+```
+
+5. Install the latest version of Docker CE
+```
+sudo yum install docker-ce
+```
+### To install Docker Compose in Centos
+
+1. Install the EPEL repository by executing the command
+```
+yum install epel-release
+```
+
+2. Install python-pip
+```
+yum install -y python-pip
+```
+
+3. Install Docker Compose by executing a pip command
+```
+pip install docker-compose
+```
+
+4. Check Docker Compose version
+```
+docker-compose -v
+```
+
+The output should be something like this
+```
+docker'compose version 1.16.1, build 6d1ac219
+```
+
+### Start Docker
+```
+sudo systemctl start docker
+```
+
+* Verify that docker is installed correctly by running the hello-world image
+```
+sudo docker run hello-world
+```
+
+### Optional Steps
+* Add insecure repos
+```
+sudo  vi /etc/docker/daemon.json
+````
+
+```
+
+{  "registry-mirrors": [],  "insecure-registries": [ "url:port", "url:port"  ], "debug": true, "experimental": true}
+
+```
+
+
+
+
+
+References:
+
+https://docs.docker.com/install/linux/docker-ce/centos/
+
+
+
+https://www.unixmen.com/docker-compose-install-centos-7/
