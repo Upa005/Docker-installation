@@ -1,8 +1,8 @@
 # Docker-installation
 Docker installation steps for 
 * [Window](https://github.com/Upa005/Docker-installation/blob/master/README.md#docker-installation-in-windows), 
-* [Ubuntu]() 
-* [Centos]()
+* [Centos](https://github.com/Upa005/Docker-installation/blob/master/README.md#docker-installation-in-centos) 
+* [Ubuntu]()
 
 ## Docker installation in windows
 1) Follow the [link](https://hub.docker.com/editions/community/docker-ce-desktop-windows) to download docker (community version) for windows:
@@ -162,14 +162,82 @@ sudo  vi /etc/docker/daemon.json
 
 ```
 
+---
+
+## Docker Installation in Ubuntu
+
+1. Update the Operating System
+```
+$ sudo apt-get update
+$ sudo apt-get install \
+    linux-image-extra-$(uname -r) \
+    linux-image-extra-virtual
+```
+2. SET UP THE REPOSITORY
+  - Update the apt package index:
+  ```
+   $ sudo apt-get update
+   ```
+  - Install packages to allow apt to use a repository over HTTPS:
+   ```
+   $ sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common
+  ```
+  - Add Docker’s official GPG key: 
+
+     This command will download [GPG](https://en.wikipedia.org/wiki/GNU_Privacy_Guard) from the link and add the the link as a trusted         APT repository key.
+     ```
+      $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    ```               
+
+   - Verify that you now have the key with the fingerprint 9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88, by searching for the           last 8 characters of the fingerprint.
+      ```
+      $ sudo apt-key fingerprint 0EBFCD88
+      ```
+      Verify the key fingerprint is present
 
 
+3. Use the following command to set up the stable repository.
+```
+$ sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+```
+
+4. Update the apt package index.
+```
+$ sudo apt-get update
+```
+
+5. Install the latest version of Docker CE, or go to the next step to install a specific version. Any existing installation of Docker is replaced.
+```
+$ sudo apt-get install docker-ce
+```
+
+7. To install a specific version of docker:
+
+The command will list the available version of docker-ce
+```
+$ apt-cache madison docker-ce
+```
+
+8. The Docker daemon starts automatically.
+
+Verify that Docker CE is installed correctly by running the hello-world image.
+```
+$ sudo docker run hello-world
+```
+![Ubuntu Hello World](https://github.com/Upa005/Docker-installation/blob/master/ubuntu_hello_world.png)
+
+This command downloads a test image and runs it in a container. When the container runs, it prints an informational message and exits.
 
 
 References:
-
-https://docs.docker.com/install/linux/docker-ce/centos/
-
-
-
-https://www.unixmen.com/docker-compose-install-centos-7/
+* https://docs.docker.com/docker-for-windows/install/
+* https://docs.docker.com/install/linux/docker-ce/centos/
+* https://docs.docker.com/install/linux/docker-ce/ubuntu/                                 
+* https://www.unixmen.com/docker-compose-install-centos-7/
